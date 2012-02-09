@@ -459,7 +459,9 @@ module.exports = ext.register("ext/editors/editors", {
         if (editorPage.actiontracker != page.$at)
             editorPage.setAttribute("actiontracker", page.$at);
 
-        page.$editor.setDocument && page.$editor.setDocument(page.$doc, page.$at);
+        if (page.$editor && page.$editor.setDocument) {
+            page.$editor.setDocument(page.$doc, page.$at);
+        }
 
         ide.dispatchEvent("editorswitch", {
             previousPage: e.previousPage,
@@ -644,6 +646,9 @@ module.exports = ext.register("ext/editors/editors", {
 
                 pNode = apf.createNodeFromXpath(e.model.data, "auto/files");
                 for (var i = 0, l = pages.length; i < l; i++) {
+                    if(!pages[i] || !pages[i].$model)
+                        continue;
+                        
                     var file = pages[i].$model.data;
                     if (!file || file.getAttribute("debug"))
                         continue;
