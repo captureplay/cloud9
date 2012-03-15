@@ -1,4 +1,5 @@
 #!/bin/sh -e
+CLOUD9PATH=/Users/gord/projects/cloud9
 # lets check if we have the submodules initialized
 cd `dirname $0`
 cd ..
@@ -7,31 +8,31 @@ if [ ! -e support/ace/LICENSE ]; then
     git submodule update --init --recursive
     echo "--------------------------- Submodules installed ------------------------"
 fi
-./bin/install_npm_dependencies.sh
+$CLOUD9PATH/bin/install_npm_dependencies.sh
 
 case `uname -a` in
 Linux*x86_64*)  echo "Linux 64 bit"   
-    support/node-builds-v4/node-linux64 bin/cloud9.js "$@" -a x-www-browser
+    $CLOUD9PATH/support/node-builds-v4/node-linux64 $CLOUD9PATH/bin/cloud9.js "$@" -a x-www-browser
     ;;
 
 Linux*i686*)  echo "Linux 32 bit"   
-    support/node-builds-v4/node-linux32 bin/cloud9.js "$@" -a x-www-browser
+    $CLOUD9PATH/support/node-builds-v4/node-linux32 $CLOUD9PATH/bin/cloud9.js "$@" -a x-www-browser
     ;;
     
 Darwin*)  echo  "OSX"
-    support/node-builds-v4/node-darwin bin/cloud9.js "$@" -a open
+    $CLOUD9PATH/support/node-builds-v4/node-darwin $CLOUD9PATH/bin/cloud9.js "$@" -a open
     ;;
 
 CYGWIN*)  echo  "Cygwin"
-    support/node-builds-v4/node-cygwin.exe bin/cloud9.js "$@" -a "cmd /c start"
+    $CLOUD9PATH/support/node-builds-v4/node-cygwin.exe $CLOUD9PATH/bin/cloud9.js "$@" -a "cmd /c start"
     ;;
 
 MING*)  echo  "MingW"
-    support/node-builds-v4/node-cygwin.exe bin/cloud9.js "$@" -a "cmd /c start"
+    $CLOUD9PATH/support/node-builds-v4/node-cygwin.exe $CLOUD9PATH/bin/cloud9.js "$@" -a "cmd /c start"
     ;;    
 
 SunOS*)  echo  "Solaris"
-    support/node-builds-v4/node-sunos bin/cloud9.js "$@"
+    $CLOUD9PATH/support/node-builds-v4/node-sunos $CLOUD9PATH/bin/cloud9.js "$@"
     ;;
 
 
